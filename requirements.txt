@@ -1,0 +1,26 @@
+# Tested on Python 3.14 (any 3.11+ should work). Minimum versions = the ones
+# this repo was developed against.
+
+# Data handling (Step 1)
+datasets>=5.0.1
+pandas>=3.0.6
+
+# Config, token budgeting, progress bars
+pydantic-settings>=2.15.0
+python-dotenv>=1.2.3
+tiktoken>=0.14.0
+tqdm>=4.70.1
+
+# LLM orchestration (Steps 2-5)
+langchain>=1.4.3
+langchain-openai>=1.6.6
+langchain-qdrant>=1.1.0
+langchain-text-splitters>=1.1.2
+langgraph>=1.2.12
+
+# Vector / hybrid search (dense + BM25 sparse via fastembed)
+qdrant-client>=1.19.1
+fastembed>=0.8.1
+
+# Jev (TypeSafe System One) reranking and routing (Steps 4-5)
+typesafe-sdk>=0.7.2

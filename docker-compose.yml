@@ -1,0 +1,20 @@
+# Local Qdrant instance used by every phase of the series.
+#
+#   docker compose up -d        # start Qdrant in the background
+#   open http://localhost:6333/dashboard
+#
+# Qdrant is free and local, which matters for cost: every retrieval step that
+# runs here (dense search, BM25 sparse search, fusion) narrows the candidate set
+# *before* any paid API (LLM or Jev) sees a single token.
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: enterprise-rag-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"   # REST API + web dashboard
+      - "6334:6334"   # gRPC API (faster bulk upserts; used when prefer_grpc=True)
+    volumes:
+      # Persist collections across restarts so we never re-embed (and re-pay for)
+      # a corpus we already ingested.
+      - ./qdrant_storage:/qdrant/storage
